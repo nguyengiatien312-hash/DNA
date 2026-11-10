@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNA & Di Truyền Học - The Blueprint of Life</title>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05050A;
+            --card-bg: rgba(15, 23, 42, 0.65);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00F2FE;
+            --accent-green: #10B981;
+            --accent-purple: #C084FC;
+            --accent-pink: #F43F5E;
+            --accent-amber: #F59E0B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Outfit', sans-serif;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #9CA3AF;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 80px;
+            overflow: hidden;
+        }
+
+        .dna-hero-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        #dnaCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            opacity: 0.85;
+        }
+
+        .dna-hint-badge {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .dna-hero-wrapper:hover .dna-hint-badge {
+            background: rgba(0, 242, 254, 0.25);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00F2FE 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #9CA3AF;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #00F2FE 0%, #0072FF 100%);
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
+        }
+
+        /* --- SHARED SECTION STYLES --- */
+        section {
+            padding: 90px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: #9CA3AF;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        /* --- FADE IN / FADE OUT HIỆU ỨNG CUỘN --- */
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-card.active-reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .glass-card {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px 24px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, var(--card-glow), transparent 75%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--card-glow);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6), 0 0 25px var(--shadow-glow);
+        }
+
+        .glass-card:hover::before {
+            opacity: 0.18;
+        }
+
+        .card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- KHÁI NIỆM DNA --- */
+        #dna-concept .section-title {
+            background: linear-gradient(135deg, #00F2FE 0%, #C084FC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .concept-text p {
+            font-size: 1.05rem;
+            color: #D1D5DB;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .concept-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.05);
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .concept-visual-box {
+            width: 100%;
+            height: 320px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #conceptCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* --- NUCLEOTIDES SECTION --- */
+        #nucleotides .section-title {
+            background: linear-gradient(135deg, #00F2FE 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nucleotide-row {
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+
+        .card-adenine { --card-glow: #00F2FE; --shadow-glow: rgba(0, 242, 254, 0.2); }
+        .card-thymine { --card-glow: #F43F5E; --shadow-glow: rgba(244, 63, 94, 0.2); }
+        .card-guanine  { --card-glow: #10B981; --shadow-glow: rgba(16, 185, 129, 0.2); }
+        .card-cytosine { --card-glow: #C084FC; --shadow-glow: rgba(192, 132, 252, 0.2); }
+
+        .base-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .base-symbol {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--card-glow);
+        }
+
+        .base-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            color: #9CA3AF;
+            border: 1px solid var(--border-color);
+        }
+
+        .base-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .pairing-info {
+            font-size: 0.9rem;
+            color: #D1D5DB;
+            margin-bottom: 14px;
+        }
+
+        .bonds-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- MODAL POPUP PHÓNG TO MÔ HÌNH --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 10, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .dna-large-modal {
+            max-width: 1020px !important;
+            width: 96% !important;
+        }
+
+        .modal-content {
+            background: #0F172A;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px 35px;
+            max-width: 620px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #9CA3AF;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            color: #FFFFFF;
+        }
+
+        .modal-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #FFFFFF;
+        }
+
+        .modal-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            margin-bottom: 14px;
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+
+        .modal-canvas-box {
+            width: 100%;
+            height: 340px;
+            background: #020205;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dna-modal-canvas-box {
+            height: 520px !important;
+        }
+
+        #modalCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none; /* Ngăn cuộn trang mặc định khi vuốt trên canvas di động */
+        }
+
+        .modal-desc {
+            font-size: 0.92rem;
+            color: #D1D5DB;
+            line-height: 1.6;
+        }
+
+        /* --- TRANSCRIPTION & TRANSLATION SECTIONS --- */
+        #transcription .section-title {
+            background: linear-gradient(135deg, #00F2FE 0%, #C084FC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #translation .section-title {
+            background: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step-1 { --card-glow: #00F2FE; --shadow-glow: rgba(0, 242, 254, 0.2); }
+        .step-2 { --card-glow: #10B981; --shadow-glow: rgba(16, 185, 129, 0.2); }
+        .step-3 { --card-glow: #C084FC; --shadow-glow: rgba(192, 132, 252, 0.2); }
+        .trans-1 { --card-glow: #F43F5E; --shadow-glow: rgba(244, 63, 94, 0.2); }
+        .trans-2 { --card-glow: #F59E0B; --shadow-glow: rgba(245, 158, 11, 0.2); }
+        .trans-3 { --card-glow: #00F2FE; --shadow-glow: rgba(0, 242, 254, 0.2); }
+
+        .step-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            color: var(--card-glow);
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #FFFFFF;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: #D1D5DB;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .code-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--card-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-box span {
+            color: #9CA3AF;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #6B7280;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- TỐI ƯU GIAO DIỆN CHO ĐIỆN THOẠI (RESPONSIVE MOBILE) --- */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+                height: 60px;
+            }
+            .nav-links {
+                display: none; /* Ẩn menu ngang trên màn hình nhỏ */
+            }
+            .hero {
+                flex-direction: column-reverse;
+                justify-content: center;
+                padding: 80px 20px 40px 20px;
+                height: auto;
+                min-height: 100vh;
+            }
+            .dna-hero-wrapper {
+                position: relative;
+                width: 100%;
+                height: 320px;
+                right: auto;
+                top: auto;
+                margin-top: 20px;
+            }
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-desc {
+                font-size: 0.95rem;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            section {
+                padding: 60px 20px;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .concept-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .concept-visual-box {
+                height: 250px;
+            }
+            .cards-grid,
+            .nucleotide-row {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+            .modal-content {
+                width: 95% !important;
+                padding: 20px 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .dna-large-modal {
+                max-width: 100% !important;
+            }
+            .dna-modal-canvas-box {
+                height: 360px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#hero" class="logo">DNA.BIO_LAB</a>
+        <ul class="nav-links">
+            <li><a href="#dna-concept">Khái Niệm</a></li>
+            <li><a href="#nucleotides">Nucleotides</a></li>
+            <li><a href="#transcription">Phiên Mã</a></li>
+            <li><a href="#translation">Dịch Mã</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="hero" class="hero">
+        <div class="dna-hero-wrapper" id="openDnaModalBtn" title="Bấm vào để phóng to và xem phân tích từng bộ phận DNA">
+            <canvas id="dnaCanvas"></canvas>
+            <div class="dna-hint-badge">🔍 Click để xem phân tích bộ phận DNA</div>
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">🧬 The Blueprint of Life</span>
+            <h1 class="hero-title">Khám Phá Cấu Trúc & Mã Gen DNA</h1>
+            <p class="hero-desc">Hệ thống trực quan hóa cấu trúc xoắn kép, các đơn phân nucleotide và dòng chảy thông tin di truyền từ DNA đến Protein.</p>
+            <div class="hero-btns">
+                <button class="btn-primary" id="openDnaModalBtn2">Phóng to Mô hình DNA 3D</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KHÁI NIỆM & CẤU TRÚC KHÔNG GIAN DNA -->
+    <section id="dna-concept">
+        <div class="section-header">
+            <h2 class="section-title">Khái Niệm & Cấu Trúc Không Gian DNA</h2>
+            <p class="section-subtitle">Đơn vị mang thông tin di truyền nền tảng của mọi dạng sống</p>
+        </div>
+        <div class="concept-grid">
+            <div class="concept-text reveal-card">
+                <p><strong>DNA (Deoxyribonucleic Acid)</strong> là một đại phân tử hữu cơ cấu tạo theo nguyên tắc đa phân (polymer), trong đó các đơn phân (monomer) là các <strong>nucleotide</strong>.</p>
+                <p>Mô hình cấu trúc không gian xoắn kép (Double Helix) do James Watson và Francis Crick công bố năm 1953 mô tả DNA gồm hai mạch polynucleotide xoắn đều quanh một trục tưởng tượng theo chiều ngược nhau (antiparallel: 5'&rarr;3' và 3'&rarr;5').</p>
+                <div class="concept-features">
+                    <div class="feature-item">⚡ Bộ khung Sugar-Phosphate nằm phía ngoài</div>
+                    <div class="feature-item">⚡ Các cặp <strong>base nitrogen</strong> liên kết ở tâm theo nguyên tắc bổ sung</div>
+                    <div class="feature-item">⚡ Tính đặc thù và đa dạng quy định thông tin di truyền</div>
+                </div>
+            </div>
+            <div class="concept-visual-box reveal-card" id="openDnaModalBtn3">
+                <canvas id="conceptCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 1: NUCLEOTIDE -->
+    <section id="nucleotides">
+        <div class="section-header">
+            <h2 class="section-title">Các Đơn Phân Nucleotide</h2>
+            <p class="section-subtitle">Bấm vào từng card để khám phá mô hình cấu tạo phân tử 3D riêng biệt</p>
+        </div>
+        <div class="cards-grid nucleotide-row">
+            <div class="glass-card card-adenine reveal-card" data-key="A">
+                <div class="card-inner">
+                    <div class="base-header"><span class="base-symbol">A</span><span class="base-type">Purine</span></div>
+                    <div class="base-name">Adenine</div>
+                    <div class="pairing-info">Liên kết: <strong>Thymine (T)</strong></div>
+                    <div class="bonds-count">⚡ 2 liên kết Hydro</div>
+                </div>
+            </div>
+            <div class="glass-card card-thymine reveal-card" data-key="T">
+                <div class="card-inner">
+                    <div class="base-header"><span class="base-symbol">T</span><span class="base-type">Pyrimidine</span></div>
+                    <div class="base-name">Thymine</div>
+                    <div class="pairing-info">Liên kết: <strong>Adenine (A)</strong></div>
+                    <div class="bonds-count">⚡ 2 liên kết Hydro</div>
+                </div>
+            </div>
+            <div class="glass-card card-guanine reveal-card" data-key="G">
+                <div class="card-inner">
+                    <div class="base-header"><span class="base-symbol">G</span><span class="base-type">Purine</span></div>
+                    <div class="base-name">Guanine</div>
+                    <div class="pairing-info">Liên kết: <strong>Cytosine (C)</strong></div>
+                    <div class="bonds-count">⚡ 3 liên kết Hydro</div>
+                </div>
+            </div>
+            <div class="glass-card card-cytosine reveal-card" data-key="C">
+                <div class="card-inner">
+                    <div class="base-header"><span class="base-symbol">C</span><span class="base-type">Pyrimidine</span></div>
+                    <div class="base-name">Cytosine</div>
+                    <div class="pairing-info">Liên kết: <strong>Guanine (G)</strong></div>
+                    <div class="bonds-count">⚡ 3 liên kết Hydro</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 2: PHIÊN MÃ (TRANSCRIPTION) -->
+    <section id="transcription">
+        <div class="section-header">
+            <h2 class="section-title">Cơ Chế Phiên Mã (Transcription)</h2>
+            <p class="section-subtitle">Quy trình tổng hợp phân tử mRNA từ mạch khuôn DNA trong nhân tế bào</p>
+        </div>
+        <div class="cards-grid">
+            <div class="glass-card step-1 reveal-card" data-key="trans-1">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 01</span>
+                    <h3 class="step-title">Khởi đầu (Initiation)</h3>
+                    <p class="step-desc">Enzyme RNA Polymerase nhận diện và liên kết với vùng khởi động (Promoter) trên phân tử DNA, làm tháo xoắn mạch kép để lộ mạch gốc.</p>
+                    <div class="code-box"><span>Nhận diện:</span> TATA Box</div>
+                </div>
+            </div>
+            <div class="glass-card step-2 reveal-card" data-key="trans-2">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 02</span>
+                    <h3 class="step-title">Kéo dài (Elongation)</h3>
+                    <p class="step-desc">RNA Polymerase trượt dọc mạch khuôn DNA theo chiều 3'&rarr;5' và tổng hợp mạch mRNA theo nguyên tắc bổ sung theo chiều 5'&rarr;3'.</p>
+                    <div class="code-box"><span>DNA &rarr; mRNA:</span> A &rarr; U</div>
+                </div>
+            </div>
+            <div class="glass-card step-3 reveal-card" data-key="trans-3">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 03</span>
+                    <h3 class="step-title">Kết thúc (Termination)</h3>
+                    <p class="step-desc">Khi gặp trình tự tín hiệu kết thúc, RNA Polymerase dừng phiên mã, phân tử mRNA sơ khai được giải phóng khỏi khuôn.</p>
+                    <div class="code-box"><span>Sản phẩm:</span> Phân tử mRNA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 3: DỊCH MÃ (TRANSLATION) -->
+    <section id="translation">
+        <div class="section-header">
+            <h2 class="section-title">Cơ Chế Dịch Mã (Translation)</h2>
+            <p class="section-subtitle">Giải mã trình tự nucleotide trên mRNA thành chuỗi amino acid tại ribosome</p>
+        </div>
+        <div class="cards-grid">
+            <div class="glass-card trans-1 reveal-card" data-key="transl-1">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 01</span>
+                    <h3 class="step-title">Khởi đầu (Initiation)</h3>
+                    <p class="step-desc">Tiểu đơn vị ribosome gắn với mRNA ở bộ ba mở đầu (AUG). Phân tử tRNA mang amino acid Methionine tiến vào khớp bổ sung.</p>
+                    <div class="code-box"><span>Codon mở đầu:</span> AUG (Met)</div>
+                </div>
+            </div>
+            <div class="glass-card trans-2 reveal-card" data-key="transl-2">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 02</span>
+                    <h3 class="step-title">Kéo dài (Elongation)</h3>
+                    <p class="step-desc">Ribosome dịch chuyển qua các codon tiếp theo. Các tRNA mang amino acid tương ứng lần lượt đến khớp tạo liên kết peptide.</p>
+                    <div class="code-box"><span>Liên kết:</span> Peptide Bond</div>
+                </div>
+            </div>
+            <div class="glass-card trans-3 reveal-card" data-key="transl-3">
+                <div class="card-inner">
+                    <span class="step-badge">Giai đoạn 03</span>
+                    <h3 class="step-title">Kết thúc (Termination)</h3>
+                    <p class="step-desc">Khi ribosome gặp bộ ba kết thúc (UAA, UAG, UGA), quá trình dịch mã dừng lại, chuỗi polypeptide được giải phóng.</p>
+                    <div class="code-box"><span>Bộ ba kết thúc:</span> UAA, UAG, UGA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL POPUP -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content" id="modalContainer">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h3 id="modalTitle" class="modal-title">Tiêu đề</h3>
+            <div id="modalTag" class="modal-tag">Thông tin / Cấu trúc</div>
+            
+            <div class="modal-canvas-box" id="modalCanvasBox">
+                <canvas id="modalCanvas"></canvas>
+            </div>
+
+            <p id="modalDesc" class="modal-desc">Đang tải nội dung...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DNA & Biotechnical Web Project. Designed by Nguyễn Gia Tiến - 10a2 (Tân Phú Upper Secondary School). Supported by Gemini</p>
+    </footer>
+
+    <!-- JAVASCRIPT XỬ LÝ TOÀN BỘ TRANG -->
+    <script>
+        const COLOR_A = '#00F2FE'; // Cyan / Blue
+        const COLOR_T = '#F43F5E'; // Red / Pink
+        const COLOR_G = '#10B981'; // Green
+        const COLOR_C = '#C084FC'; // Purple
+
+        // 1. Canvas Hero DNA
+        const canvas = document.getElementById('dnaCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeHero() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeHero);
+        resizeHero();
+
+        let angle = 0;
+        const points = 24;
+        const spacing = 28;
+        const amplitude = 95;
+
+        function animateHero() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2 - (points * spacing) / 2);
+
+            const currentAngle = angle;
+            for (let i = 0; i < points; i++) {
+                let y = i * spacing;
+                let theta = currentAngle + i * 0.25;
+
+                let x1 = Math.sin(theta) * amplitude;
+                let x2 = Math.sin(theta + Math.PI) * amplitude;
+
+                let z1 = Math.cos(theta);
+                let z2 = Math.cos(theta + Math.PI);
+
+                let color1 = (i % 2 === 0) ? COLOR_A : COLOR_G;
+                let color2 = (i % 2 === 0) ? COLOR_T : COLOR_C;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y);
+                ctx.lineTo(x2, y);
+                let avgZ = (z1 + z2) / 2;
+                ctx.strokeStyle = `rgba(0, 242, 254, ${0.15 + (avgZ + 1) * 0.15})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                let radius1 = 4 + z1 * 1.5;
+                if (radius1 > 0) {
+                    ctx.beginPath();
+                    ctx.arc(x1, y, radius1, 0, Math.PI * 2);
+                    ctx.fillStyle = color1;
+                    ctx.shadowBlur = z1 > 0 ? 10 : 0;
+                    ctx.shadowColor = color1;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+
+                let radius2 = 4 + z2 * 1.5;
+                if (radius2 > 0) {
+                    ctx.beginPath();
+                    ctx.arc(x2, y, radius2, 0, Math.PI * 2);
+                    ctx.fillStyle = color2;
+                    ctx.shadowBlur = z2 > 0 ? 10 : 0;
+                    ctx.shadowColor = color2;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+            ctx.restore();
+            angle += 0.02;
+            requestAnimationFrame(animateHero);
+        }
+        animateHero();
+
+        // Canvas thu nhỏ Khái niệm DNA
+        const conceptCanvas = document.getElementById('conceptCanvas');
+        const cCtx = conceptCanvas.getContext('2d');
+
+        function resizeConcept() {
+            conceptCanvas.width = conceptCanvas.parentElement.clientWidth;
+            conceptCanvas.height = conceptCanvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeConcept);
+        resizeConcept();
+
+        let conceptAngle = 0;
+        function animateConcept() {
+            cCtx.clearRect(0, 0, conceptCanvas.width, conceptCanvas.height);
+            cCtx.save();
+
+            const pts = 14;
+            const spc = 22;
+            const amp = 65;
+            cCtx.translate(conceptCanvas.width / 2, conceptCanvas.height / 2 - (pts * spc) / 2);
+
+            for (let i = 0; i < pts; i++) {
+                let y = i * spc;
+                let theta = conceptAngle + i * 0.3;
+                let x1 = Math.sin(theta) * amp;
+                let x2 = Math.sin(theta + Math.PI) * amp;
+                let z1 = Math.cos(theta);
+                let z2 = Math.cos(theta + Math.PI);
+
+                cCtx.beginPath();
+                cCtx.moveTo(x1, y);
+                cCtx.lineTo(x2, y);
+                cCtx.strokeStyle = `rgba(192, 132, 252, ${0.2 + (z1+1)*0.1})`;
+                cCtx.lineWidth = 1.2;
+                cCtx.stroke();
+
+                cCtx.beginPath();
+                cCtx.arc(x1, y, 3.5 + z1*1.2, 0, Math.PI*2);
+                cCtx.fillStyle = (i % 2 === 0) ? COLOR_A : COLOR_G;
+                cCtx.fill();
+
+                cCtx.beginPath();
+                cCtx.arc(x2, y, 3.5 + z2*1.2, 0, Math.PI*2);
+                cCtx.fillStyle = (i % 2 === 0) ? COLOR_T : COLOR_C;
+                cCtx.fill();
+            }
+
+            cCtx.restore();
+            conceptAngle += 0.025;
+            requestAnimationFrame(animateConcept);
+        }
+        animateConcept();
+
+        // 3D Phân tử đơn phân Nucleotide (Phóng to tối đa)
+        const moleculesData = {
+            'A': {
+                atoms: [
+                    {x: 0, y: -72, z: 18, type: 'N', color: COLOR_A, r: 11},
+                    {x: 63, y: -36, z: -18, type: 'C', color: '#38BDF8', r: 10},
+                    {x: 54, y: 45, z: 36, type: 'C', color: '#0284C7', r: 10},
+                    {x: -18, y: 72, z: -27, type: 'N', color: COLOR_A, r: 11},
+                    {x: -72, y: 9, z: 27, type: 'C', color: '#38BDF8', r: 10},
+                    {x: -45, y: -54, z: -36, type: 'C', color: '#0284C7', r: 10},
+                    {x: 117, y: -81, z: 18, type: 'N', color: '#93C5FD', r: 9},
+                    {x: -126, y: 27, z: -18, type: 'N', color: '#93C5FD', r: 8},
+                    {x: 18, y: 126, z: -9, type: 'C', color: '#38BDF8', r: 8}
+                ],
+                bonds: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[4,7],[2,8]]
+            },
+            'T': {
+                atoms: [
+                    {x: -54, y: -54, z: 18, type: 'N', color: COLOR_T, r: 11},
+                    {x: 36, y: -63, z: -27, type: 'C', color: '#FB7185', r: 10},
+                    {x: 81, y: 18, z: 36, type: 'C', color: '#E11D48', r: 10},
+                    {x: 18, y: 81, z: -18, type: 'N', color: COLOR_T, r: 11},
+                    {x: -63, y: 54, z: 27, type: 'C', color: '#FB7185', r: 10},
+                    {x: -99, y: -18, z: -36, type: 'C', color: '#E11D48', r: 10},
+                    {x: 72, y: -117, z: -9, type: 'O', color: '#FDA4AF', r: 9},
+                    {x: 144, y: 54, z: 45, type: 'O', color: '#FDA4AF', r: 9},
+                    {x: -36, y: 135, z: -27, type: 'C', color: '#FB7185', r: 8}
+                ],
+                bonds: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[2,7],[4,8]]
+            },
+            'G': {
+                atoms: [
+                    {x: -18, y: -81, z: 27, type: 'N', color: COLOR_G, r: 11},
+                    {x: 63, y: -45, z: -18, type: 'C', color: '#34D399', r: 10},
+                    {x: 54, y: 36, z: 36, type: 'C', color: '#059669', r: 10},
+                    {x: -27, y: 72, z: -27, type: 'N', color: COLOR_G, r: 11},
+                    {x: -81, y: 9, z: 18, type: 'C', color: '#34D399', r: 10},
+                    {x: -54, y: -54, z: -36, type: 'C', color: '#059669', r: 10},
+                    {x: 126, y: -81, z: 9, type: 'O', color: '#6EE7B7', r: 9},
+                    {x: 108, y: 81, z: -18, type: 'N', color: '#A7F3D0', r: 9},
+                    {x: -135, y: 36, z: 27, type: 'N', color: '#6EE7B7', r: 8}
+                ],
+                bonds: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[2,7],[4,8]]
+            },
+            'C': {
+                atoms: [
+                    {x: -45, y: -63, z: 27, type: 'N', color: COLOR_C, r: 11},
+                    {x: 45, y: -54, z: -18, type: 'C', color: '#D8B4FE', r: 10},
+                    {x: 72, y: 27, z: 36, type: 'C', color: '#9333EA', r: 10},
+                    {x: 9, y: 81, z: -27, type: 'N', color: COLOR_C, r: 11},
+                    {x: -63, y: 45, z: 18, type: 'C', color: '#D8B4FE', r: 10},
+                    {x: -81, y: -27, z: -36, type: 'C', color: '#9333EA', r: 10},
+                    {x: 99, y: -99, z: -18, type: 'O', color: '#E9D5FF', r: 9},
+                    {x: 135, y: 63, z: 45, type: 'N', color: '#E9D5FF', r: 9}
+                ],
+                bonds: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[2,7]]
+            }
+        };
+
+        const detailsData = {
+            'A': {
+                title: 'Adenine (A)',
+                tag: 'Công thức: C₅H₅N₅ — Purine',
+                animType: 'molecule',
+                molKey: 'A',
+                desc: 'Adenine là một base nitrogen thuộc nhóm purine vòng kép. Liên kết đặc hiệu với Thymine (T) bằng 2 liên kết hydro.'
+            },
+            'T': {
+                title: 'Thymine (T)',
+                tag: 'Công thức: C₅H₆N₂O₂ — Pyrimidine',
+                animType: 'molecule',
+                molKey: 'T',
+                desc: 'Thymine là base pyrimidine vòng đơn đặc trưng của DNA. Liên kết bổ sung với Adenine (A) qua 2 liên kết hydro.'
+            },
+            'G': {
+                title: 'Guanine (G)',
+                tag: 'Công thức: C₅H₅N₅O — Purine',
+                animType: 'molecule',
+                molKey: 'G',
+                desc: 'Guanine là base purine vòng kép. Liên kết bền vững với Cytosine (C) thông qua 3 liên kết hydro.'
+            },
+            'C': {
+                title: 'Cytosine (C)',
+                tag: 'Công thức: C₄H₅N₃O — Pyrimidine',
+                animType: 'molecule',
+                molKey: 'C',
+                desc: 'Cytosine là base pyrimidine vòng đơn. Liên kết với Guanine (G) qua 3 liên kết hydro.'
+            },
+            'trans-1': {
+                title: 'Khởi đầu Phiên mã (Initiation)',
+                tag: 'Vùng Promoter & TATA Box',
+                animType: 'trans-init',
+                desc: 'Enzyme RNA Polymerase nhận diện vùng khởi động (Promoter) trên phân tử DNA, bám vào và làm tách chuỗi xoắn kép để chuẩn bị lộ mạch khuôn.'
+            },
+            'trans-2': {
+                title: 'Kéo dài Phiên mã (Elongation)',
+                tag: 'Tổng hợp mạch mRNA (5\' &rarr; 3\')',
+                animType: 'trans-elong',
+                desc: 'RNA Polymerase dịch chuyển dọc mạch khuôn DNA theo chiều 3\'&rarr;5\', đồng thời ráp các ribonucleotide tự do thành chuỗi mRNA bổ sung.'
+            },
+            'trans-3': {
+                title: 'Kết thúc Phiên mã (Termination)',
+                tag: 'Giải phóng phân tử mRNA',
+                animType: 'trans-term',
+                desc: 'Khi gặp trình tự tín hiệu kết thúc, RNA Polymerase dừng phiên mã. Phân tử mRNA sơ khai được giải phóng khỏi khuôn.'
+            },
+            'transl-1': {
+                title: 'Khởi đầu Dịch mã (Initiation)',
+                tag: 'Gắn Ribosome & Codon AUG',
+                animType: 'transl-init',
+                desc: 'Tiểu đơn vị bé của ribosome trượt trên mRNA đến bộ ba mở đầu AUG. tRNA mang amino acid Methionine tiến vào khớp mã đặc hiệu.'
+            },
+            'transl-2': {
+                title: 'Kéo dài Dịch mã (Elongation)',
+                tag: 'Hình thành liên kết Peptide',
+                animType: 'transl-env',
+                desc: 'Ribosome dịch chuyển qua các codon tiếp theo. Các tRNA mang amino acid tương ứng lần lượt đến khớp, hình thành chuỗi polypeptide.'
+            },
+            'transl-3': {
+                title: 'Kết thúc Dịch mã (Termination)',
+                tag: 'Giải phóng chuỗi Polypeptide',
+                animType: 'transl-term',
+                desc: 'Khi ribosome gặp codon kết thúc (UAA, UAG, UGA), quá trình dịch mã dừng lại và giải phóng chuỗi polypeptide hoàn chỉnh.'
+            }
+        };
+
+        const modal = document.getElementById('detailModal');
+        const modalContainer = document.getElementById('modalContainer');
+        const modalCanvasBox = document.getElementById('modalCanvasBox');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTag = document.getElementById('modalTag');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalCanvas = document.getElementById('modalCanvas');
+        const mCtx = modalCanvas.getContext('2d');
+
+        let currentAnimType = null;
+        let currentMolKey = null;
+        let animFrameId = null;
+        let subAngle = 0;
+        let molRotX = 0;
+        let molRotY = 0;
+
+        function rotX(x, y, z, angle) {
+            let cos = Math.cos(angle), sin = Math.sin(angle);
+            return { x: x, y: y * cos - z * sin, z: y * sin + z * cos };
+        }
+        function rotY(x, y, z, angle) {
+            let cos = Math.cos(angle), sin = Math.sin(angle);
+            return { x: x * cos + z * sin, y: y, z: -x * sin + z * cos };
+        }
+
+        function openDnaLargeModal() {
+            modalTitle.textContent = "Phân Tích Cấu Trúc Bộ Phận DNA (Double Helix)";
+            modalTag.textContent = "Các Nucleotide A, T, G, C & Bộ Khung Sugar-Phosphate";
+            modalDesc.textContent = "Mô hình trực quan thể hiện 4 đơn phân Nucleotide chính: Adenine (A), Thymine (T), Guanine (G) và Cytosine (C). Các cặp base liên kết với nhau ở tâm bằng liên kết Hydro, bao bọc bởi bộ khung đường - phosphate.";
+            currentAnimType = 'dna-labeled-large';
+            
+            modalContainer.classList.add('dna-large-modal');
+            modalCanvasBox.classList.add('dna-modal-canvas-box');
+            modal.classList.add('active');
+
+            modalCanvas.width = modalCanvas.parentElement.clientWidth;
+            modalCanvas.height = modalCanvas.parentElement.clientHeight;
+
+            startModalAnimation();
+        }
+
+        document.getElementById('openDnaModalBtn').addEventListener('click', openDnaLargeModal);
+        document.getElementById('openDnaModalBtn2').addEventListener('click', openDnaLargeModal);
+        document.getElementById('openDnaModalBtn3').addEventListener('click', openDnaLargeModal);
+
+        document.querySelectorAll('.reveal-card[data-key]').forEach(card => {
+            card.addEventListener('click', () => {
+                const key = card.getAttribute('data-key');
+                const data = detailsData[key];
+                if (data) {
+                    modalContainer.classList.remove('dna-large-modal');
+                    modalCanvasBox.classList.remove('dna-modal-canvas-box');
+
+                    modalTitle.textContent = data.title;
+                    modalTag.textContent = data.tag;
+                    modalDesc.textContent = data.desc;
+                    currentAnimType = data.animType;
+                    currentMolKey = data.molKey || null;
+                    modal.classList.add('active');
+                    
+                    modalCanvas.width = modalCanvas.parentElement.clientWidth;
+                    modalCanvas.height = modalCanvas.parentElement.clientHeight;
+                    
+                    startModalAnimation();
+                }
+            });
+        });
+
+        function drawTrackingCallout(ctx, targetX, targetY, boxX, boxY, isLeft, titleText, detailText, accentColor) {
+            ctx.save();
+            let elbowX = isLeft ? boxX + 210 : boxX;
+            
+            ctx.strokeStyle = accentColor;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(targetX, targetY);
+            ctx.lineTo(elbowX, boxY + 22);
+            ctx.stroke();
+
+            ctx.fillStyle = accentColor;
+            ctx.beginPath();
+            ctx.arc(targetX, targetY, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            let boxWidth = 210;
+            let boxHeight = 44;
+
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+            ctx.strokeStyle = accentColor;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 8);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = accentColor;
+            ctx.font = 'bold 11px "Outfit", sans-serif';
+            ctx.fillText(titleText, boxX + 10, boxY + 18);
+
+            ctx.fillStyle = '#9CA3AF';
+            ctx.font = '10px "Outfit", sans-serif';
+            ctx.fillText(detailText, boxX + 10, boxY + 32);
+
+            ctx.restore();
+        }
+
+        function startModalAnimation() {
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+
+            function draw() {
+                mCtx.clearRect(0, 0, modalCanvas.width, modalCanvas.height);
+                subAngle += 0.02;
+                molRotX += 0.012;
+                molRotY += 0.018;
+
+                const cx = modalCanvas.width / 2;
+                const cy = modalCanvas.height / 2;
+
+                if (currentAnimType === 'dna-labeled-large') {
+                    mCtx.save();
+                    const yOffset = -200;
+                    mCtx.translate(cx, cy + yOffset);
+
+                    const pts = 22;
+                    const spc = 21;
+                    const amp = 85;
+
+                    let nodeCoords = [];
+
+                    for (let i = 0; i < pts; i++) {
+                        let y = i * spc;
+                        let theta = subAngle + i * 0.28;
+                        let x1 = Math.sin(theta) * amp;
+                        let x2 = Math.sin(theta + Math.PI) * amp;
+                        let z1 = Math.cos(theta);
+                        let z2 = Math.cos(theta + Math.PI);
+
+                        let type1, type2, color1, color2;
+                        if (i % 2 === 0) {
+                            type1 = 'A'; color1 = COLOR_A;
+                            type2 = 'T'; color2 = COLOR_T;
+                        } else {
+                            type1 = 'G'; color1 = COLOR_G;
+                            type2 = 'C'; color2 = COLOR_C;
+                        }
+
+                        let midX = (x1 + x2) / 2;
+
+                        nodeCoords[i] = {
+                            x1: cx + x1,
+                            y1: cy + yOffset + y,
+                            x2: cx + x2,
+                            y2: cy + yOffset + y,
+                            midX: cx + midX,
+                            midY: cy + yOffset + y,
+                            type1: type1,
+                            type2: type2
+                        };
+
+                        mCtx.beginPath();
+                        mCtx.moveTo(x1, y);
+                        mCtx.lineTo(midX, y);
+                        mCtx.strokeStyle = color1;
+                        mCtx.lineWidth = 3.5;
+                        mCtx.stroke();
+
+                        mCtx.beginPath();
+                        mCtx.moveTo(midX, y);
+                        mCtx.lineTo(x2, y);
+                        mCtx.strokeStyle = color2;
+                        mCtx.lineWidth = 3.5;
+                        mCtx.stroke();
+
+                        mCtx.beginPath();
+                        mCtx.arc(midX, y, 2.5, 0, Math.PI * 2);
+                        mCtx.fillStyle = '#FFFFFF';
+                        mCtx.fill();
+
+                        let r1 = 5.5 + z1 * 2;
+                        if (r1 > 0) {
+                            mCtx.beginPath();
+                            mCtx.arc(x1, y, r1, 0, Math.PI * 2);
+                            mCtx.fillStyle = color1;
+                            mCtx.shadowBlur = z1 > 0 ? 10 : 0;
+                            mCtx.shadowColor = color1;
+                            mCtx.fill();
+                            mCtx.shadowBlur = 0;
+
+                            mCtx.fillStyle = '#000000';
+                            mCtx.font = `bold ${Math.round(8 + z1)}px "JetBrains Mono", monospace`;
+                            mCtx.textAlign = 'center';
+                            mCtx.textBaseline = 'middle';
+                            mCtx.fillText(type1, x1, y);
+                        }
+
+                        let r2 = 5.5 + z2 * 2;
+                        if (r2 > 0) {
+                            mCtx.beginPath();
+                            mCtx.arc(x2, y, r2, 0, Math.PI * 2);
+                            mCtx.fillStyle = color2;
+                            mCtx.shadowBlur = z2 > 0 ? 10 : 0;
+                            mCtx.shadowColor = color2;
+                            mCtx.fill();
+                            mCtx.shadowBlur = 0;
+
+                            mCtx.fillStyle = '#000000';
+                            mCtx.font = `bold ${Math.round(8 + z2)}px "JetBrains Mono", monospace`;
+                            mCtx.textAlign = 'center';
+                            mCtx.textBaseline = 'middle';
+                            mCtx.fillText(type2, x2, y);
+                        }
+                    }
+                    mCtx.restore();
+
+                    if (nodeCoords[2]) {
+                        drawTrackingCallout(mCtx, nodeCoords[2].x1, nodeCoords[2].y1, cx - 440, cy - 180, true, "1. Sugar-Phosphate Backbone", "Deoxyribose-Phosphate Chain (5'→3')", COLOR_A);
+                    }
+                    if (nodeCoords[5]) {
+                        drawTrackingCallout(mCtx, nodeCoords[5].x1, nodeCoords[5].y1, cx - 440, cy - 90, true, "2. Adenine (A)", "Purine base nitrogen", COLOR_A);
+                    }
+                    if (nodeCoords[11]) {
+                        drawTrackingCallout(mCtx, nodeCoords[11].x1, nodeCoords[11].y1, cx - 440, cy, true, "3. Guanine (G)", "Purine base nitrogen", COLOR_G);
+                    }
+                    if (nodeCoords[4]) {
+                        drawTrackingCallout(mCtx, nodeCoords[4].midX, nodeCoords[4].midY, cx + 230, cy - 180, false, "4. Hydrogen Bond", "Nối các cặp Base bổ sung ở tâm", COLOR_G);
+                    }
+                    if (nodeCoords[8]) {
+                        drawTrackingCallout(mCtx, nodeCoords[8].x2, nodeCoords[8].y2, cx + 230, cy - 90, false, "5. Thymine (T)", "Pyrimidine base nitrogen", COLOR_T);
+                    }
+                    if (nodeCoords[15]) {
+                        drawTrackingCallout(mCtx, nodeCoords[15].x2, nodeCoords[15].y2, cx + 230, cy, false, "6. Cytosine (C)", "Pyrimidine base nitrogen", COLOR_C);
+                    }
+
+                } else if (currentAnimType === 'molecule') {
+                    let mol = moleculesData[currentMolKey];
+                    let projected = mol.atoms.map(atom => {
+                        let p = rotX(atom.x, atom.y, atom.z, molRotX);
+                        p = rotY(p.x, p.y, p.z, molRotY);
+                        let fov = 350;
+                        let scale = fov / (fov + p.z + 50);
+                        return {
+                            x: cx + p.x * scale,
+                            y: cy + p.y * scale,
+                            z: p.z,
+                            scale: scale,
+                            type: atom.type,
+                            color: atom.color,
+                            r: atom.r * scale
+                        };
+                    });
+
+                    mol.bonds.forEach(bond => {
+                        let a = projected[bond[0]];
+                        let b = projected[bond[1]];
+                        let grad = mCtx.createLinearGradient(a.x, a.y, b.x, b.y);
+                        grad.addColorStop(0, a.color);
+                        grad.addColorStop(1, b.color);
+                        mCtx.beginPath();
+                        mCtx.moveTo(a.x, a.y);
+                        mCtx.lineTo(b.x, b.y);
+                        mCtx.strokeStyle = grad;
+                        mCtx.lineWidth = 3.5;
+                        mCtx.globalAlpha = 0.8;
+                        mCtx.stroke();
+                        mCtx.globalAlpha = 1.0;
+                    });
+
+                    let sorted = projected.map((_, i) => i).sort((a, b) => projected[a].z - projected[b].z);
+                    sorted.forEach(i => {
+                        let atom = projected[i];
+                        mCtx.beginPath();
+                        mCtx.arc(atom.x, atom.y, atom.r, 0, Math.PI * 2);
+                        mCtx.fillStyle = atom.color;
+                        mCtx.shadowBlur = 16;
+                        mCtx.shadowColor = atom.color;
+                        mCtx.fill();
+                        mCtx.shadowBlur = 0;
+
+                        mCtx.fillStyle = '#000000';
+                        mCtx.font = `bold ${Math.round(11 * atom.scale)}px 'JetBrains Mono', monospace`;
+                        mCtx.textAlign = 'center';
+                        mCtx.textBaseline = 'middle';
+                        mCtx.fillText(atom.type, atom.x, atom.y);
+                    });
+
+                } else if (currentAnimType === 'trans-init') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = COLOR_A; mCtx.lineWidth = 2.5;
+                    mCtx.beginPath(); mCtx.moveTo(0, -15); mCtx.lineTo(200, -15); mCtx.stroke();
+                    mCtx.beginPath(); mCtx.moveTo(0, 15); mCtx.lineTo(200, 15); mCtx.stroke();
+                    mCtx.fillStyle = 'rgba(244,63,94, ' + (0.4 + Math.sin(subAngle*3)*0.4) + ')';
+                    mCtx.fillRect(70, -22, 50, 44);
+                    mCtx.fillStyle = 'rgba(16, 185, 129, 0.35)';
+                    mCtx.strokeStyle = COLOR_G; mCtx.lineWidth = 2;
+                    let pX = 60 + Math.sin(subAngle)*15;
+                    mCtx.beginPath(); mCtx.roundRect(pX, -30, 70, 60, 12); mCtx.fill(); mCtx.stroke();
+                    mCtx.fillStyle = COLOR_G; mCtx.font = '11px sans-serif'; mCtx.fillText("RNA Pol", pX + 14, 5);
+                    mCtx.restore();
+
+                } else if (currentAnimType === 'trans-elong') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = COLOR_A; mCtx.lineWidth = 2;
+                    mCtx.beginPath(); mCtx.moveTo(0, -15); mCtx.lineTo(70, -15); mCtx.lineTo(130, -35); mCtx.lineTo(200, -35); mCtx.stroke();
+                    mCtx.beginPath(); mCtx.moveTo(0, 15); mCtx.lineTo(70, 15); mCtx.lineTo(130, 35); mCtx.lineTo(200, 35); mCtx.stroke();
+                    mCtx.strokeStyle = COLOR_T; mCtx.lineWidth = 3;
+                    mCtx.beginPath(); mCtx.moveTo(90, 0); mCtx.quadraticCurveTo(110, -30, 150 - (subAngle%20)*3, -60); mCtx.stroke();
+                    mCtx.fillStyle = 'rgba(16, 185, 129, 0.3)'; mCtx.strokeStyle = COLOR_G;
+                    mCtx.beginPath(); mCtx.roundRect(80, -35, 50, 70, 10); mCtx.fill(); mCtx.stroke();
+                    mCtx.restore();
+
+                } else if (currentAnimType === 'trans-term') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = COLOR_A; mCtx.lineWidth = 2.5;
+                    mCtx.beginPath(); mCtx.moveTo(0, -15); mCtx.lineTo(200, -15); mCtx.stroke();
+                    mCtx.beginPath(); mCtx.moveTo(0, 15); mCtx.lineTo(200, 15); mCtx.stroke();
+                    let floatX = (subAngle * 15) % 120;
+                    mCtx.strokeStyle = COLOR_T; mCtx.lineWidth = 3;
+                    mCtx.beginPath(); mCtx.moveTo(150 + floatX, -25); mCtx.quadraticCurveTo(180 + floatX, -50, 220 + floatX, -30); mCtx.stroke();
+                    mCtx.fillStyle = COLOR_T; mCtx.font = '10px sans-serif'; mCtx.fillText("mRNA trưởng thành", 130 + floatX, -60);
+                    mCtx.restore();
+
+                } else if (currentAnimType === 'transl-init') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = '#F59E0B'; mCtx.lineWidth = 3;
+                    mCtx.beginPath(); mCtx.moveTo(0, 30); mCtx.lineTo(200, 30); mCtx.stroke();
+                    mCtx.fillStyle = '#F59E0B'; mCtx.font = '10px sans-serif'; mCtx.fillText("AUG (Start)", 30, 50);
+                    mCtx.fillStyle = 'rgba(192, 132, 252, 0.3)'; mCtx.strokeStyle = COLOR_C; mCtx.lineWidth = 2;
+                    mCtx.beginPath(); mCtx.roundRect(60, -10, 80, 45, 10); mCtx.fill(); mCtx.stroke();
+                    mCtx.fillStyle = COLOR_A;
+                    mCtx.beginPath(); mCtx.arc(90, -25, 6, 0, Math.PI*2); mCtx.fill();
+                    mCtx.strokeStyle = COLOR_A; mCtx.beginPath(); mCtx.moveTo(90, -19); mCtx.lineTo(90, -10); mCtx.stroke();
+                    mCtx.fillStyle = '#FFFFFF'; mCtx.font = '10px sans-serif'; mCtx.fillText("Met", 100, -22);
+                    mCtx.restore();
+
+                } else if (currentAnimType === 'transl-env') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = '#F59E0B'; mCtx.lineWidth = 3;
+                    mCtx.beginPath(); mCtx.moveTo(0, 30); mCtx.lineTo(200, 30); mCtx.stroke();
+                    let rX = 70 + Math.sin(subAngle)*15;
+                    mCtx.fillStyle = 'rgba(192, 132, 252, 0.3)'; mCtx.strokeStyle = COLOR_C; mCtx.lineWidth = 2;
+                    mCtx.beginPath(); mCtx.roundRect(rX, -10, 80, 45, 10); mCtx.fill(); mCtx.stroke();
+                    mCtx.strokeStyle = COLOR_G; mCtx.lineWidth = 3;
+                    mCtx.beginPath();
+                    mCtx.moveTo(rX + 40, -10);
+                    mCtx.quadraticCurveTo(rX + 20, -35, rX + 50, -50);
+                    mCtx.stroke();
+                    mCtx.fillStyle = COLOR_G;
+                    mCtx.beginPath(); mCtx.arc(rX + 40, -15, 4, 0, Math.PI*2); mCtx.fill();
+                    mCtx.beginPath(); mCtx.arc(rX + 30, -30, 4, 0, Math.PI*2); mCtx.fill();
+                    mCtx.beginPath(); mCtx.arc(rX + 50, -50, 4, 0, Math.PI*2); mCtx.fill();
+                    mCtx.restore();
+
+                } else if (currentAnimType === 'transl-term') {
+                    mCtx.save();
+                    mCtx.translate(cx - 120, cy);
+                    mCtx.scale(1.4, 1.4);
+                    mCtx.strokeStyle = '#F59E0B'; mCtx.lineWidth = 3;
+                    mCtx.beginPath(); mCtx.moveTo(0, 30); mCtx.lineTo(200, 30); mCtx.stroke();
+                    mCtx.fillStyle = '#F59E0B'; mCtx.font = '10px sans-serif'; mCtx.fillText("Stop Codon", 90, 50);
+                    mCtx.fillStyle = 'rgba(192, 132, 252, 0.25)'; mCtx.strokeStyle = COLOR_C; mCtx.lineWidth = 2;
+                    mCtx.beginPath(); mCtx.roundRect(70, -25, 75, 20, 8); mCtx.fill(); mCtx.stroke();
+                    mCtx.beginPath(); mCtx.roundRect(70, 10, 75, 20, 8); mCtx.fill(); mCtx.stroke();
+                    mCtx.strokeStyle = COLOR_G; mCtx.lineWidth = 3;
+                    mCtx.beginPath();
+                    let dropY = Math.sin(subAngle)*10;
+                    mCtx.moveTo(110, -35 + dropY);
+                    mCtx.bezierCurveTo(130, -55 + dropY, 90, -75 + dropY, 120, -90 + dropY);
+                    mCtx.stroke();
+                    mCtx.fillStyle = COLOR_G; mCtx.font = '10px sans-serif'; mCtx.fillText("Protein hoàn chỉnh", 90, -100 + dropY);
+                    mCtx.restore();
+                }
+
+                animFrameId = requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                if (animFrameId) cancelAnimationFrame(animFrameId);
+            }
+        });
+
+        // Xoay mô hình bằng chuột và cử chỉ cảm ứng (Touch / Swipe) trên điện thoại
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        modalCanvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let deltaX = e.clientX - startX;
+            let deltaY = e.clientY - startY;
+            startX = e.clientX;
+            startY = e.clientY;
+
+            subAngle += deltaX * 0.01;
+            molRotX += deltaY * 0.01;
+            molRotY += deltaX * 0.01;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        modalCanvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            let deltaX = e.touches[0].clientX - startX;
+            let deltaY = e.touches[0].clientY - startY;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+
+            subAngle += deltaX * 0.015;
+            molRotX += deltaY * 0.015;
+            molRotY += deltaX * 0.015;
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Scroll Reveal 2 chiều
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30px 0px -30px 0px',
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active-reveal');
+                } else {
+                    entry.target.classList.remove('active-reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
